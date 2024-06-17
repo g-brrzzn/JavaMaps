@@ -1,7 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         CityGraph graph = new CityGraph();
-// Adicione cidades e distâncias
+
+        // Adicione cidades e distâncias com pedágio
         graph.addCity("São Paulo");
         graph.addCity("Santos");
         graph.addCity("Sorocaba");
@@ -16,44 +17,21 @@ public class Main {
         graph.addCity("Ribeirão Preto");
         graph.addCity("São José do Rio Preto");
 
-// Adicione distâncias (arestas)
-        graph.addEdge("São Paulo", "Santos", 85);
-        graph.addEdge("Santos", "São Paulo", 85);
+        // Adicione distâncias (arestas) com pedágio
+        graph.addEdge("São Paulo", "Santos", 85, 10);
+        graph.addEdge("São Paulo", "Sorocaba", 109, 8);
+        graph.addEdge("São Paulo", "Campinas", 109, 7);
+        graph.addEdge("São Paulo", "São Jose dos Campos", 78, 5);
+        graph.addEdge("Campinas", "Piracicaba", 72, 6);
+        graph.addEdge("Campinas", "Araraquara", 186, 15);
+        graph.addEdge("Campinas", "Ribeirão Preto", 223, 20);
+        graph.addEdge("Araraquara", "São José do Rio Preto", 168, 12);
+        graph.addEdge("Sorocaba", "Bauru", 244, 18);
+        graph.addEdge("Bauru", "Marilia", 106, 7);
+        graph.addEdge("Bauru", "Araçatuba", 191, 10);
+        graph.addEdge("Sorocaba", "Presidente Prudente", 475, 30);
 
-        graph.addEdge("São Paulo", "Sorocaba", 109);
-        graph.addEdge("Sorocaba", "São Paulo", 109);
-
-        graph.addEdge("São Paulo", "Campinas", 109);
-        graph.addEdge("Campinas", "São Paulo", 109);
-
-        graph.addEdge("São Paulo", "São Jose dos Campos", 78);
-        graph.addEdge("São Jose dos Campos", "São Paulo", 78);
-
-        graph.addEdge("Campinas", "Piracicaba", 72);
-        graph.addEdge("Piracicaba", "Campinas", 72);
-
-        graph.addEdge("Campinas", "Araraquara", 186);
-        graph.addEdge("Araraquara", "Campinas", 186);
-
-        graph.addEdge("Campinas", "Ribeirão Preto", 223);
-        graph.addEdge("Ribeirão Preto", "Campinas", 223);
-
-        graph.addEdge("Araraquara", "São José do Rio Preto", 168);
-        graph.addEdge("São José do Rio Preto", "Araraquara", 168);
-
-        graph.addEdge("Sorocaba", "Bauru", 244);
-        graph.addEdge("Bauru", "Sorocaba", 244);
-
-        graph.addEdge("Bauru", "Marilia", 106);
-        graph.addEdge("Marilia", "Bauru", 106);
-
-        graph.addEdge("Bauru", "Araçatuba", 191);
-        graph.addEdge("Araçatuba", "Bauru", 191);
-
-        graph.addEdge("Sorocaba", "Presidente Prudente", 475);
-        graph.addEdge("Presidente Prudente", "Sorocaba", 475);
-
-
-        GraphUI ui = new GraphUI(graph);
+        // Cria e exibe a interface gráfica do grafo
+        new GraphUI(graph);
     }
 }
