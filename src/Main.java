@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
         CityGraph graph = new CityGraph();
@@ -20,7 +22,7 @@ public class Main {
         // Adicione distâncias (arestas) com pedágio
         graph.addEdge("São Paulo", "Santos", 85, 10);
         graph.addEdge("São Paulo", "Sorocaba", 109, 8);
-        graph.addEdge("São Paulo", "Campinas", 109, 7);
+        graph.addEdge("São Paulo", "Campinas", 109, 5000);
         graph.addEdge("São Paulo", "São Jose dos Campos", 78, 5);
         graph.addEdge("Campinas", "Piracicaba", 72, 6);
         graph.addEdge("Campinas", "Araraquara", 186, 15);
@@ -31,7 +33,8 @@ public class Main {
         graph.addEdge("Bauru", "Araçatuba", 191, 10);
         graph.addEdge("Sorocaba", "Presidente Prudente", 475, 30);
 
-        // Cria e exibe a interface gráfica do grafo
-        new GraphUI(graph);
+        // Cria e exibe a interface gráfica do grafo no EDT
+        SwingUtilities SwingUtilities = null;
+        SwingUtilities.invokeLater(() -> new GraphUI(graph));
     }
 }

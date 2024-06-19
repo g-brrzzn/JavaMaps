@@ -55,6 +55,14 @@ public class CityGraph {
         return adjacencyMap.getOrDefault(city, Collections.emptyMap()).keySet();
     }
 
+    public int getDistance(String city1, String city2) {
+        return adjacencyMap.getOrDefault(city1, Collections.emptyMap()).getOrDefault(city2, Integer.MAX_VALUE);
+    }
+
+    public int getToll(String city1, String city2) {
+        return tollMap.getOrDefault(city1, Collections.emptyMap()).getOrDefault(city2, Integer.MAX_VALUE);
+    }
+
     public void clear() {
         adjacencyMap.clear();
         tollMap.clear();
