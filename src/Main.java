@@ -5,19 +5,25 @@ public class Main {
         CityGraph graph = new CityGraph();
 
         // Adicione cidades e distâncias com pedágio
-        graph.addCity("São Paulo");
-        graph.addCity("Santos");
-        graph.addCity("Sorocaba");
-        graph.addCity("Bauru");
-        graph.addCity("Marilia");
-        graph.addCity("Araçatuba");
-        graph.addCity("Presidente Prudente");
-        graph.addCity("São Jose dos Campos");
-        graph.addCity("Campinas");
-        graph.addCity("Piracicaba");
-        graph.addCity("Araraquara");
-        graph.addCity("Ribeirão Preto");
-        graph.addCity("São José do Rio Preto");
+        graph.addCity("São Paulo", 510, 320);
+        graph.addCity("Santos", 430, 340);
+        graph.addCity("Sorocaba", 450, 300);
+        graph.addCity("Bauru", 300, 200);
+        graph.addCity("Marilia", 250, 210);
+        graph.addCity("Araçatuba", 190, 125);
+        graph.addCity("Presidente Prudente", 120, 205);
+        graph.addCity("São Jose dos Campos", 600, 200);
+        graph.addCity("Campinas", 350, 150);
+        graph.addCity("Piracicaba", 300, 100);
+        graph.addCity("Araraquara", 250, 200);
+        graph.addCity("Ribeirão Preto", 150, 300);
+        graph.addCity("São José do Rio Preto", 100, 400);
+        graph.addCity("Guarulhos", 450, 150);
+        graph.addCity("São Bernardo do Campo", 400, 250);
+        graph.addCity("Santo André", 450, 250);
+        graph.addCity("Osasco", 400, 150);
+        graph.addCity("Mogi das Cruzes", 550, 150);
+        graph.addCity("Jundiaí", 350, 100);
 
         // Adicione distâncias (arestas) com pedágio
         graph.addEdge("São Paulo", "Santos", 85, 10);

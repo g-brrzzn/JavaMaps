@@ -3,20 +3,24 @@ import java.util.*;
 public class CityGraph {
     private Map<String, Map<String, Integer>> adjacencyMap;
     private Map<String, Map<String, Integer>> tollMap;
+    private Map<String, int[]> coordinatesMap; // Novo mapa para coordenadas
 
     public CityGraph() {
         this.adjacencyMap = new HashMap<>();
         this.tollMap = new HashMap<>();
+        this.coordinatesMap = new HashMap<>(); // Inicializa o mapa de coordenadas
     }
 
-    public void addCity(String city) {
+    public void addCity(String city, int x, int y) { // Altere o método para aceitar coordenadas
         adjacencyMap.putIfAbsent(city, new HashMap<>());
         tollMap.putIfAbsent(city, new HashMap<>());
+        coordinatesMap.put(city, new int[]{x, y}); // Adicione as coordenadas ao mapa
     }
 
     public void removeCity(String city) {
         adjacencyMap.remove(city);
         tollMap.remove(city);
+        coordinatesMap.remove(city); // Remova as coordenadas
         for (Map<String, Integer> edges : adjacencyMap.values()) {
             edges.remove(city);
         }
@@ -63,8 +67,13 @@ public class CityGraph {
         return tollMap.getOrDefault(city1, Collections.emptyMap()).getOrDefault(city2, Integer.MAX_VALUE);
     }
 
+    public int[] getCoordinates(String city) { // Novo método para obter coordenadas
+        return coordinatesMap.get(city);
+    }
+
     public void clear() {
         adjacencyMap.clear();
         tollMap.clear();
+        coordinatesMap.clear(); // Limpe o mapa de coordenadas
     }
 }

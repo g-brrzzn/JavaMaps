@@ -150,7 +150,8 @@ public class GraphUI extends JFrame {
             Map<String, Object> vertices = new HashMap<>();
             Object parent = mxGraph.getDefaultParent();
             for (String city : graph.getCities()) {
-                vertices.put(city, mxGraph.insertVertex(parent, null, city, 100, 100, 80, 30));
+                int[] coords = graph.getCoordinates(city);
+                vertices.put(city, mxGraph.insertVertex(parent, null, city, coords[0], coords[1], 80, 30));
             }
             for (String city1 : graph.getCities()) {
                 for (Map.Entry<String, Integer> entry : graph.getNeighborsWithDistances(city1).entrySet()) {
@@ -161,8 +162,6 @@ public class GraphUI extends JFrame {
             }
         } finally {
             mxGraph.getModel().endUpdate();
-            mxFastOrganicLayout layout = new mxFastOrganicLayout(mxGraph);
-            layout.execute(mxGraph.getDefaultParent());
         }
     }
 
