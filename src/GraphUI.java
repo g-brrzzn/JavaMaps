@@ -138,7 +138,9 @@ public class GraphUI extends JFrame {
     }
 
     private void loadCities() {
-        for (String city : graph.getCities()) {
+        List<String> cities = new ArrayList<>(graph.getCities());
+        Collections.sort(cities);
+        for (String city : cities) {
             origemComboBox.addItem(city);
             destinoComboBox.addItem(city);
         }
