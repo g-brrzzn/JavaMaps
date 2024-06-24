@@ -33,12 +33,11 @@ public class GraphUI extends JFrame {
     }
 
     private void initUI() {
-        setTitle("City Graph");
+        setTitle("JavaMaps");
         setSize(800, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Painel de controle
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new GridLayout(10, 2));
 
@@ -110,20 +109,26 @@ public class GraphUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String cityName = JOptionPane.showInputDialog("Nome da cidade a adicionar:");
                 if (cityName != null && !cityName.trim().isEmpty()) {
+                    graph.addCity(cityName, 400, 5);
                     addVertex(cityName);
+                    updateCityComboBoxes();
                 }
             }
         });
+
 
         removerCidadeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cityName = JOptionPane.showInputDialog("Nome da cidade a remover:");
                 if (cityName != null && !cityName.trim().isEmpty()) {
+                    graph.removeCity(cityName);
                     removeVertex(cityName);
+                    updateCityComboBoxes();
                 }
             }
         });
+
 
         removerArestaButton.addActionListener(new ActionListener() {
             @Override
@@ -209,11 +214,13 @@ public class GraphUI extends JFrame {
             mxGraph.getModel().beginUpdate();
             try {
                 mxGraph.insertEdge(parent, null, distance, vertex1, vertex2);
+                graph.addEdge(city1, city2, distance, toll);
             } finally {
                 mxGraph.getModel().endUpdate();
             }
         }
     }
+
 
     private void removeEdge(String city1, String city2) {
         Object parent = mxGraph.getDefaultParent();
@@ -226,6 +233,7 @@ public class GraphUI extends JFrame {
                 mxGraph.getModel().beginUpdate();
                 try {
                     mxGraph.removeCells(new Object[]{edge});
+                    graph.removeEdge(city1, city2);
                 } finally {
                     mxGraph.getModel().endUpdate();
                 }
@@ -233,6 +241,7 @@ public class GraphUI extends JFrame {
             }
         }
     }
+
 
     private void performSearch() {
         String origem = (String) origemComboBox.getSelectedItem();
@@ -295,4 +304,18 @@ public class GraphUI extends JFrame {
             mxGraph.getModel().endUpdate();
         }
     }
+
+    private void updateCityComboBoxes() {
+        origemComboBox.removeAllItems();
+        destinoComboBox.removeAllItems();
+
+        List<String> cities = new ArrayList<>(graph.getCities());
+        Collections.sort(cities);
+        for (String city : cities) {
+            origemComboBox.addItem(city);
+            destinoComboBox.addItem(city);
+        }
+    }
+
+
 }

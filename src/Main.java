@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,7 +25,6 @@ public class Main {
         graph.addCity("São Paulo", 560, 350);
         graph.addCity("Sorocaba", 480, 325);
 
-        // Adicione as arestas com novos preços de pedágio
         graph.addEdge("São Paulo", "Santos", 85, 12);
         graph.addEdge("São Paulo", "Sorocaba", 109, 15);
         graph.addEdge("São Paulo", "Campinas", 109, 20);
@@ -61,6 +61,26 @@ public class Main {
         graph.addEdge("Ourinhos", "Bauru", 125, 17);
         graph.addEdge("Assis", "Presidente Prudente", 126, 14);
 
+        compareRoutes(graph);
         SwingUtilities.invokeLater(() -> new GraphUI(graph));
+
+    }
+
+    private static void compareRoutes(CityGraph graph) {
+        for (String origem : graph.getCities()) {
+            for (String destino : graph.getCities()) {
+                if (!origem.equals(destino)) {
+                    List<String> shortestPath = DijkstraAlgorithm.findShortestPath(graph, origem, destino);
+                    List<String> lowestTollPath = DijkstraAlgorithm.findLowestTollPath(graph, origem, destino);
+
+                    if (!shortestPath.equals(lowestTollPath)) {
+                        System.out.println("Diferentes rotas encontradas entre " + origem + " e " + destino);
+                        System.out.println("Shortest Path: " + shortestPath);
+                        System.out.println("Lowest Toll Path: " + lowestTollPath);
+                        System.out.println();
+                    }
+                }
+            }
+        }
     }
 }
