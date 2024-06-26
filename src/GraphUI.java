@@ -264,12 +264,7 @@ public class GraphUI extends JFrame {
 
 
     private void clearGraph() {
-        mxGraph.getModel().beginUpdate();
-        try {
-            mxGraph.removeCells(mxGraph.getChildCells(mxGraph.getDefaultParent(), true, true));
-        } finally {
-            mxGraph.getModel().endUpdate();
-        }
+        clearEdgeStyles();
     }
 
     private void clearEdgeStyles() {
