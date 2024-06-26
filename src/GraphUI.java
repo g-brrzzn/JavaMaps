@@ -24,6 +24,9 @@ public class GraphUI extends JFrame {
     private JButton adicionarArestaButton;
     private JButton removerArestaButton;
 
+    private JRadioButton dijkstraButton;
+    private JRadioButton aStarButton;
+
     public GraphUI(CityGraph graph) {
         this.graph = graph;
         this.mxGraph = new mxGraph();
@@ -46,6 +49,10 @@ public class GraphUI extends JFrame {
         resultadoField = new JTextField();
         menorDistanciaButton = new JRadioButton("Menor Distância");
         menorPedagioButton = new JRadioButton("Menor Pedágio");
+
+        dijkstraButton = new JRadioButton("Dijkstra");
+        aStarButton = new JRadioButton("A*");
+
         buscarButton = new JButton("Buscar");
         limparButton = new JButton("Limpar");
         adicionarCidadeButton = new JButton("Adicionar Cidade");
@@ -56,6 +63,10 @@ public class GraphUI extends JFrame {
         ButtonGroup group = new ButtonGroup();
         group.add(menorDistanciaButton);
         group.add(menorPedagioButton);
+
+        ButtonGroup algorithmGroup = new ButtonGroup();
+        algorithmGroup.add(dijkstraButton);
+        algorithmGroup.add(aStarButton);
 
         controlPanel.add(new JLabel("Origem:"));
         controlPanel.add(origemComboBox);
@@ -71,7 +82,9 @@ public class GraphUI extends JFrame {
         controlPanel.add(removerCidadeButton);
         controlPanel.add(adicionarArestaButton);
         controlPanel.add(removerArestaButton);
-
+        controlPanel.add(dijkstraButton);
+        controlPanel.add(aStarButton);
+        dijkstraButton.setSelected(true);
 
         add(controlPanel, BorderLayout.NORTH);
 
@@ -249,18 +262,33 @@ public class GraphUI extends JFrame {
         if (origem != null && destino != null) {
             clearEdgeStyles();
             List<String> path = null;
-            if (menorDistanciaButton.isSelected()) {
-                path = DijkstraAlgorithm.findShortestPath(graph, origem, destino);
-                int distance = DijkstraAlgorithm.getPathDistance(graph, path);
-                resultadoField.setText(distance == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(distance));
-            } else if (menorPedagioButton.isSelected()) {
-                path = DijkstraAlgorithm.findLowestTollPath(graph, origem, destino);
-                int toll = DijkstraAlgorithm.getPathToll(graph, path);
-                resultadoField.setText(toll == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(toll));
+            if (dijkstraButton.isSelected()) {
+                if (menorDistanciaButton.isSelected()) {
+                    path = DijkstraAlgorithm.findShortestPath(graph, origem, destino);
+                    int distance = DijkstraAlgorithm.getPathDistance(graph, path);
+                    resultadoField.setText(distance == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(distance));
+                } else if (menorPedagioButton.isSelected()) {
+                    path = DijkstraAlgorithm.findLowestTollPath(graph, origem, destino);
+                    int toll = DijkstraAlgorithm.getPathToll(graph, path);
+                    resultadoField.setText(toll == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(toll));
+                }
+            } else if (aStarButton.isSelected()) {
+                if (menorDistanciaButton.isSelected()) {
+                    path = AStarAlgorithm.findShortestPath(graph, origem, destino);
+                    int distance = AStarAlgorithm.getPathDistance(graph, path);
+                    resultadoField.setText(distance == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(distance));
+                } else if (menorPedagioButton.isSelected()) {
+                    path = AStarAlgorithm.findLowestTollPath(graph, origem, destino);
+                    int toll = AStarAlgorithm.getPathToll(graph, path);
+                    resultadoField.setText(toll == Integer.MAX_VALUE ? "Caminho não encontrado" : String.valueOf(toll));
+                }
             }
             highlightPath(path);
         }
     }
+
+
+
 
 
     private void clearGraph() {
